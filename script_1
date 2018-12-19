@@ -1,0 +1,8 @@
+#!/bin/bash
+
+echo -e "--------------------------------output exercise 1--------------------------------" > output1
+for i in {1..10}
+	do
+		./modelo1 platform-cluster.xml 6 >> output1
+		echo -e "-----------------------------------------------------------------------------" >> output1
+	done
