@@ -1,4 +1,4 @@
-BIN_FILES  =  modelo1
+BIN_FILES  =  modelo2
 
 INSTALL_PATH = $(HOME)/simgrid-3.20
 
@@ -17,7 +17,7 @@ all: CFLAGS=$(NO_PRAYER_FOR_THE_WICKED)
 all: $(BIN_FILES)
 .PHONY : all
 
-modelo1: modelo1.o rand.o
+modelo2: modelo2.o rand.o
 	$(CC) $(LDFLAGS) $^ $(LDLIBS) -o $@
 
 %.o: %.c
