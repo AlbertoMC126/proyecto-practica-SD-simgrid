@@ -36,6 +36,7 @@ int cliente(int argc, char *argv[])
   	double task_comm_size = 2000;  // petición de 2000 bytes
   	char sprintf_buffer[64];
   	char mailbox[256];
+  	char mailbox2[256];
   	msg_task_t task = NULL;
   	msg_task_t ans = NULL;
   	struct ClientRequest req, *rq;
@@ -100,10 +101,11 @@ int cliente(int argc, char *argv[])
 	
 	/* finalizar */
   	sprintf(mailbox, "d-%d", 0);
+  	sprintf(mailbox2, "d-%d", 1);
     msg_task_t finalize = MSG_task_create("finalize", 0, 0, FINALIZE);
     MSG_task_send(finalize, mailbox);
 	printf("Cliente %d   tiempo medio de servicio = %g ms\n", my_c, timeServiceAvg/NUM_TASKS);
-	
+    MSG_task_send(finalize, mailbox2);
 
 
   	return 0;
