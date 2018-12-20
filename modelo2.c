@@ -5,7 +5,8 @@
 #include "rand.h"
 
 int  NUM_CLIENTS;
-#define NUM_SERVERS	1		// número de servidores
+int  NUM_SERVERS = 1;
+//#define NUM_SERVERS	1		// número de servidores
 #define NUM_DISPATCHERS	1
 #define SERVICE_TIME    0.002     		// tiempo medio de servicio = 2 ms
 #define INTER_ARRIVAL_TIME    0.010     	// tiempo medio entre peticiones en los clientes = 10 ms
@@ -19,7 +20,6 @@ int  NUM_CLIENTS;
 #define FINALIZE ((void*)221297)      // mensaje de finalización
 
 msg_bar_t barrier_clients;
-
 
 // estructura de la petcición que envía el cliente 
 struct ClientRequest {
@@ -98,13 +98,12 @@ int cliente(int argc, char *argv[])
 
 	MSG_barrier_wait(barrier_clients);  // se esperan todos los clientes
 	
-    	/* finalizar */
-	if (my_c == 0) {
-      		sprintf(mailbox, "d-%d", 0);
-        	msg_task_t finalize = MSG_task_create("finalize", 0, 0, FINALIZE);
-        	MSG_task_send(finalize, mailbox);
-		printf("Cliente %d   tiempo medio de servicio = %g ms\n", my_c, timeServiceAvg/NUM_TASKS);
-	}
+	/* finalizar */
+  	sprintf(mailbox, "d-%d", 0);
+    msg_task_t finalize = MSG_task_create("finalize", 0, 0, FINALIZE);
+    MSG_task_send(finalize, mailbox);
+	printf("Cliente %d   tiempo medio de servicio = %g ms\n", my_c, timeServiceAvg/NUM_TASKS);
+	
 
 
   	return 0;
@@ -320,7 +319,10 @@ int main(int argc, char *argv[])
 
         seed((int) time(NULL));
 	NUM_CLIENTS = atoi(argv[2]);
-
+	if (argc > 3){
+		NUM_SERVERS = atoi(argv[3]);
+	}
+	
 
   	MSG_init(&argc, argv);
 
@@ -332,7 +334,6 @@ int main(int argc, char *argv[])
 
 
 	//printf("Simulation time %g\n", MSG_get_clock());
-
 
   	if (res == MSG_OK)
     		return 0;
