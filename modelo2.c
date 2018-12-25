@@ -5,7 +5,8 @@
 #include "rand.h"
 
 int  NUM_CLIENTS;
-int  NUM_SERVERS = 1;
+int  NUM_SERVERS;
+int  DISPATCHER_STRATEGY;
 //#define NUM_SERVERS	1		// número de servidores
 #define NUM_DISPATCHERS	1
 #define SERVICE_TIME    0.002     		// tiempo medio de servicio = 2 ms
@@ -20,6 +21,7 @@ int  NUM_SERVERS = 1;
 #define FINALIZE ((void*)221297)      // mensaje de finalización
 
 msg_bar_t barrier_clients;
+msg_bar_t barrier_servers;
 
 // estructura de la petcición que envía el cliente 
 struct ClientRequest {
@@ -36,7 +38,6 @@ int cliente(int argc, char *argv[])
   	double task_comm_size = 2000;  // petición de 2000 bytes
   	char sprintf_buffer[64];
   	char mailbox[256];
-  	char mailbox2[256];
   	msg_task_t task = NULL;
   	msg_task_t ans = NULL;
   	struct ClientRequest req, *rq;
@@ -101,11 +102,9 @@ int cliente(int argc, char *argv[])
 	
 	/* finalizar */
   	sprintf(mailbox, "d-%d", 0);
-  	sprintf(mailbox2, "d-%d", 1);
     msg_task_t finalize = MSG_task_create("finalize", 0, 0, FINALIZE);
     MSG_task_send(finalize, mailbox);
 	printf("Cliente %d   tiempo medio de servicio = %g ms\n", my_c, timeServiceAvg/NUM_TASKS);
-    MSG_task_send(finalize, mailbox2);
 
 
   	return 0;
@@ -122,6 +121,7 @@ int dispatcher(int argc, char *argv[])
   	int res;
 	char mailbox[64];
 	int ns;
+	int nt = 0;
 
 	my_d = atoi(argv[0]);
 	MSG_mailbox_set_async(MSG_host_get_name(MSG_host_self()));
@@ -142,8 +142,16 @@ int dispatcher(int argc, char *argv[])
 		// determina el servidor donde enviar la petición
 		// para su procesamiento cuando haya varios servidores
 
-		ns = 0; // servidor 0
-		
+        if (DISPATCHER_STRATEGY==0)
+        	ns = uniform_int(0, NUM_SERVERS-1);
+
+        else if(DISPATCHER_STRATEGY==1){
+			nt++;
+			ns = nt%NUM_SERVERS; // servidor seleccionado	
+		}
+
+		if(ns<0 || ns>=NUM_SERVERS)
+			printf("\tError, servidor s-%d fuera de rango\n", ns);
 
 		//////////////////////////////////////////////////////////////
 		//
@@ -165,10 +173,12 @@ int dispatcher(int argc, char *argv[])
                 task = NULL;
         }
 
-	// mensaje de finalización al servidor 0
-       	sprintf(mailbox, "s-%d", 0);
-       	msg_task_t finalize = MSG_task_create("finalize", 0, 0, FINALIZE);
-       	MSG_task_send(finalize, mailbox);
+	// mensaje de finalización a los servidores
+       	for(int i=0; i<NUM_SERVERS; i++){
+	       	sprintf(mailbox, "s-%d", i);
+	       	msg_task_t finalize = MSG_task_create("finalize", 0, 0, FINALIZE);
+	       	MSG_task_send(finalize, mailbox);
+       	}
 	return 0;
 }
 
@@ -221,6 +231,8 @@ int server(int argc, char *argv[])
 	}  
 
 	c2=MSG_get_clock();
+
+	MSG_barrier_wait(barrier_servers);  // se esperan todos los servidores
 
 	if (ts > (c2-c1)){
 		printf("Servidor: %d ;  tareas: %d ;  Carga: %g %  ; Peticiones/s: %g\n", 
@@ -320,15 +332,27 @@ int main(int argc, char *argv[])
         }
 
         seed((int) time(NULL));
+
 	NUM_CLIENTS = atoi(argv[2]);
 	if (argc > 3){
 		NUM_SERVERS = atoi(argv[3]);
 	}
+	else
+		NUM_SERVERS = 1;
 	
+
+	if (argc > 4 && (strstr(argv[4], "round")!=NULL && strstr(argv[4], "robin")!=NULL)){
+		DISPATCHER_STRATEGY = 1;
+	}
+	else
+		DISPATCHER_STRATEGY = 0;
+
+	printf("\tDISPARTCHER_STRATEGY = %s\n", (DISPATCHER_STRATEGY ? "ROUND ROBIN" : "RANDOM"));
 
   	MSG_init(&argc, argv);
 
 	barrier_clients=MSG_barrier_init(NUM_CLIENTS);
+	barrier_servers=MSG_barrier_init(NUM_SERVERS);
 
 	test_all(argv[1]);
 
