@@ -6,7 +6,7 @@ echo -e "---Resultados de servidores ejercicio 1---" > output1_servidores.csv
 echo "Cliente;Tiempo medio de servicio" >> output1_clientes.csv
 echo "Servidor;Tareas;Carga(%);Peticiones/s" >> output1_servidores.csv
 echo -e "-----------------------------------------------------------------------------" >> output1.txt
-for i in {1..5}
+for i in {1..10}
 	do
 		echo -e "-----------------------------------------------------------------------------" >> output1.txt
 		mapfile -t output1_array < <(./modelo2 platform-cluster.xml 6 1 0)

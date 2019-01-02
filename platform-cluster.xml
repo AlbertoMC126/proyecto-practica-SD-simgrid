@@ -6,17 +6,17 @@
 
 
 	 <!---  Cluster para los generadores de peticiones clientes -->
-	<cluster id="cluster_0" prefix="c-" suffix=""radical="0-10"
+	<cluster id="cluster_0" prefix="c-" suffix=""radical="0-50"
                 speed="3Gf" bw="1GBps" lat="10us" 
                 router_id="router_cluster0" />
 
 	 <!---  Cluster para los dispatchers de peticiones -->
-	<cluster id="cluster_1" prefix="d-" suffix=""radical="0-10"
+	<cluster id="cluster_1" prefix="d-" suffix=""radical="0-1"
                 speed="3Gf" bw="1Bps" lat="10us" 
                 router_id="router_cluster1" />
 
 	 <!---  Cluster para los servidores de peticiones -->
-	<cluster id="cluster_2" prefix="s-" suffix=""radical="0-10"
+	<cluster id="cluster_2" prefix="s-" suffix=""radical="0-50"
                 speed="3Gf" bw="1GBps" lat="10us"
                 router_id="router_cluster2"  />
 
