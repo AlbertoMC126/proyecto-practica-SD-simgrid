@@ -13,7 +13,7 @@ LDLIBS = -lm -lsimgrid -rdynamic $(INSTALL_PATH)/lib/libsimgrid.so -Wl,-rpath,$(
 
 
 all: CFLAGS=$(NO_PRAYER_FOR_THE_WICKED)
-all: $(BIN_FILES)
+all: $(BIN_FILES) clean-obj
 .PHONY : all
 
 modelo2: modelo2.o rand.o
@@ -24,6 +24,9 @@ modelo2: modelo2.o rand.o
 
 clean:
 	rm -f $(BIN_FILES) *.o
+
+clean-obj:
+	rm -f *.o
 
 .SUFFIXES:
 .PHONY : clean

@@ -16,7 +16,7 @@ int  DISPATCHER_STRATEGY;			// Round robin: 1 or a string containing "round" and
 
 #define NUM_TASKS	10000			// número de tareas a generar en cada cliente
 
-#define SERVICE_RATE    (1/SERVICE_TIME)     	//  tasa de servicio, exponencial de media 2 ms
+#define SERVICE_RATE    (1/SERVICE_TIME)     	// tasa de servicio, exponencial de media 2 ms
 #define ARRIVAL_RATE    (1/INTER_ARRIVAL_TIME) 	// tasa de llegadas entre peticiones
 
 
