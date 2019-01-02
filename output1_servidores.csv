@@ -1,0 +1,7 @@
+---Resultados de servidores ejercicio 1---
+Servidor;Tareas;Carga(%);Peticiones/s
+Servidor0;60000;85,6206;357,65
+Servidor0;60000;85,8281;357,184
+Servidor0;60000;85,3005;357,013
+Servidor0;60000;86,1926;359,27
+Servidor0;60000;85,3932;357,999

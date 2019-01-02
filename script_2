@@ -9,7 +9,7 @@ echo -e "-----------------------------------------------------------------------
 for i in {1..5}
 	do
 		echo -e "-----------------------------------------------------------------------------" >> output1.txt
-		mapfile -t output1_array < <(./modelo2 platform-cluster.xml 6 1 0)
+		mapfile -t output1_array < <(./modelo2 platform-cluster.xml 6 10 0)
 		for y in "${output1_array[@]}"
 			do
 				echo -e "${y}" >> output1.txt

@@ -4,21 +4,23 @@
 #include "simgrid/msg.h"            
 #include "rand.h"
 
-int  NUM_CLIENTS;
-int  NUM_SERVERS;
-int  DISPATCHER_STRATEGY;
-//#define NUM_SERVERS	1		// número de servidores
+int  NUM_CLIENTS;				// número de clientes
+int  NUM_SERVERS;				// número de servidores
+
+int  DISPATCHER_STRATEGY;			// Round robin: 1 or a string containing "round" and "robin"
+						// Random: anything else, default strategy
+
 #define NUM_DISPATCHERS	1
 #define SERVICE_TIME    0.002     		// tiempo medio de servicio = 2 ms
 #define INTER_ARRIVAL_TIME    0.010     	// tiempo medio entre peticiones en los clientes = 10 ms
 
-#define NUM_TASKS	10000		// número de tareas a generar en cada cliente
+#define NUM_TASKS	10000			// número de tareas a generar en cada cliente
 
-#define SERVICE_RATE    (1/SERVICE_TIME)     //  tasa de servicio, exponencial de media 2 ms
-#define ARRIVAL_RATE    (1/INTER_ARRIVAL_TIME)     // tasa de llegadas entre peticiones
+#define SERVICE_RATE    (1/SERVICE_TIME)     	//  tasa de servicio, exponencial de media 2 ms
+#define ARRIVAL_RATE    (1/INTER_ARRIVAL_TIME) 	// tasa de llegadas entre peticiones
 
 
-#define FINALIZE ((void*)221297)      // mensaje de finalización
+#define FINALIZE ((void*)221297)      		// mensaje de finalización
 
 msg_bar_t barrier_clients;
 msg_bar_t barrier_servers;
@@ -102,10 +104,10 @@ int cliente(int argc, char *argv[])
 	
 	/* finalizar */
   	sprintf(mailbox, "d-%d", 0);
-    msg_task_t finalize = MSG_task_create("finalize", 0, 0, FINALIZE);
-    MSG_task_send(finalize, mailbox);
-	printf("Cliente %d   tiempo medio de servicio = %g ms\n", my_c, timeServiceAvg/NUM_TASKS);
+    	msg_task_t finalize = MSG_task_create("finalize", 0, 0, FINALIZE);
+    	MSG_task_send(finalize, mailbox);
 
+	printf("Cliente%d tiempo medio de servicio = %g ms\n", my_c, timeServiceAvg/NUM_TASKS);
 
   	return 0;
 }                               
@@ -142,13 +144,16 @@ int dispatcher(int argc, char *argv[])
 		// determina el servidor donde enviar la petición
 		// para su procesamiento cuando haya varios servidores
 
-        if (DISPATCHER_STRATEGY==0)
-        	ns = uniform_int(0, NUM_SERVERS-1);
-
-        else if(DISPATCHER_STRATEGY==1){
+		// Dependiendo de la estrategia de asignación, se hará 
+		// aleatoriamente (0) o mediante round robin
+		if (DISPATCHER_STRATEGY==0)
+			ns = uniform_int(0, NUM_SERVERS-1);	// Servidor seleccionado	
+		else if(DISPATCHER_STRATEGY==1){
 			nt++;
-			ns = nt%NUM_SERVERS; // servidor seleccionado	
+			ns = nt%NUM_SERVERS; 			// Servidor seleccionado	
 		}
+		else
+			ns = 0;
 
 		if(ns<0 || ns>=NUM_SERVERS)
 			printf("\tError, servidor s-%d fuera de rango\n", ns);
@@ -173,7 +178,7 @@ int dispatcher(int argc, char *argv[])
                 task = NULL;
         }
 
-	// mensaje de finalización a los servidores
+	// Mensaje de finalización a cada servidor
        	for(int i=0; i<NUM_SERVERS; i++){
 	       	sprintf(mailbox, "s-%d", i);
 	       	msg_task_t finalize = MSG_task_create("finalize", 0, 0, FINALIZE);
@@ -232,14 +237,15 @@ int server(int argc, char *argv[])
 
 	c2=MSG_get_clock();
 
-	MSG_barrier_wait(barrier_servers);  // se esperan todos los servidores
+	// Se esperan todos los servidores para que devuelvan sus resultados
+	MSG_barrier_wait(barrier_servers);  
 
 	if (ts > (c2-c1)){
-		printf("Servidor: %d ;  tareas: %d ;  Carga: %g %  ; Peticiones/s: %g\n", 
+		printf("Servidor%d ; tareas: %d ;  Carga: %g%  ; Peticiones/s: %g\n", 
 					my_s, n_tasks, 100.0, n_tasks/(c2-c1));
 	}
 	else{
-		printf("Servidor: %d ;  tareas: %d ; Carga: %g % ;  Peticiones/s: %g \n", 
+		printf("Servidor%d ; tareas: %d ; Carga: %g% ;  Peticiones/s: %g \n", 
 					my_s, n_tasks, (ts/(c2-c1))*100,  n_tasks/(c2-c1));
 	}
 
@@ -333,24 +339,27 @@ int main(int argc, char *argv[])
 
         seed((int) time(NULL));
 
+	// Recogida del número de clientes del segundo argumento
 	NUM_CLIENTS = atoi(argv[2]);
+
+	// Recogida del número de servidores del tercer argumento (1 en caso de no haberlo)
 	if (argc > 3){
 		NUM_SERVERS = atoi(argv[3]);
 	}
 	else
 		NUM_SERVERS = 1;
-	
 
-	if (argc > 4 && (strstr(argv[4], "round")!=NULL && strstr(argv[4], "robin")!=NULL)){
+	// Recogida del tipo de método de asignación de trabajos a los srevidores
+	// Round robin: 1 o una cadena que contenga "round" y "robin"
+	// Random: cualquier otra cosa, estrategia por defecto
+	if (argc > 4 && ((strstr(argv[4], "round")!=NULL && strstr(argv[4], "robin")!=NULL) || atoi(argv[4])==1))
 		DISPATCHER_STRATEGY = 1;
-	}
 	else
 		DISPATCHER_STRATEGY = 0;
 
-	printf("\tDISPARTCHER_STRATEGY = %s\n", (DISPATCHER_STRATEGY ? "ROUND ROBIN" : "RANDOM"));
-
   	MSG_init(&argc, argv);
 
+	// Se crean las barreras tanto para los clientes como para los servidores
 	barrier_clients=MSG_barrier_init(NUM_CLIENTS);
 	barrier_servers=MSG_barrier_init(NUM_SERVERS);
 
