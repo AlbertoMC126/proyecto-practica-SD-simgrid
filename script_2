@@ -1,19 +1,19 @@
 #!/bin/bash
 
-echo -e "------------------------------output exercise 1------------------------------" > output1.txt
-echo -e "---Resultados de clientes ejercicio 1---" > output1_clientes.csv
-echo -e "---Resultados de servidores ejercicio 1---" > output1_servidores.csv
-echo "Cliente;Tiempo medio de servicio" >> output1_clientes.csv
-echo "Servidor;Tareas;Carga(%);Peticiones/s" >> output1_servidores.csv
-echo -e "-----------------------------------------------------------------------------" >> output1.txt
-for i in {1..5}
+echo -e "------------------------------output exercise 2a------------------------------" > output2a.txt
+echo -e "---Resultados de clientes ejercicio 1---" > output2a_clientes.csv
+echo -e "---Resultados de servidores ejercicio 1---" > output2a_servidores.csv
+echo "Cliente;Tiempo medio de servicio" >> output2a_clientes.csv
+echo "Servidor;Tareas;Carga(%);Peticiones/s" >> output2a_servidores.csv
+for i in {1..25}
 	do
-		echo -e "-----------------------------------------------------------------------------" >> output1.txt
-		mapfile -t output1_array < <(./modelo2 platform-cluster.xml 6 10 0)
-		for y in "${output1_array[@]}"
+		mapfile -t output_array < <(./modelo2 platform-cluster.xml $(( i * 2 )) 10 0)
+		for y in "${output_array[@]}"
 			do
-				echo -e "${y}" >> output1.txt
-				echo "${y}" | grep "Cliente" | sed -E 's/(Cliente[[:digit:]]*).*= ([[:digit:]]*\.[[:digit:]]*).*/\1;\2/'  | sed -e 's/\./,/g' >> output1_clientes.csv
-				echo "${y}" | grep "Servidor" | sed -E 's/(Servidor[[:digit:]]*).*tareas: ([[:digit:]]*).*Carga: ([[:digit:]]*\.[[:digit:]]*).*\/s: ([[:digit:]]*\.[[:digit:]]*).*/\1;\2;\3;\4/' | sed -e 's/\./,/g' >> output1_servidores.csv
+				echo -e "${y}" >> output2a.txt
+				echo "${y}" | grep "Cliente" | sed -E 's/(Cliente[[:digit:]]*).*= ([[:digit:]]*\.[[:digit:]]*).*/\1;\2/'  | sed -e 's/\./,/g' >> output2a_clientes.csv
+				echo "${y}" | grep "Servidor" | sed -E 's/(Servidor[[:digit:]]*).*tareas: ([[:digit:]]*).*Carga: ([[:digit:]]*\.[[:digit:]]*).*\/s: ([[:digit:]]*\.[[:digit:]]*).*/\1;\2;\3;\4/' | sed -e 's/\./,/g' >> output2a_servidores.csv
+				echo "${y}" | grep -E '^-*$' | sed -E 's/(^-*$)//' >> output2a_servidores.csv
+				echo "${y}" | grep -E '^-*$' | sed -E 's/(^-*$)//' >> output2a_clientes.csv
 			done 
 	done

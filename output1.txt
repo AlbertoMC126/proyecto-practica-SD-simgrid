@@ -1,82 +1,81 @@
 ------------------------------output exercise 1------------------------------
 -----------------------------------------------------------------------------
+Cliente1 tiempo medio de servicio = 0.0066337 ms
+Cliente0 tiempo medio de servicio = 0.00665404 ms
+Cliente3 tiempo medio de servicio = 0.00663775 ms
+Cliente4 tiempo medio de servicio = 0.00660827 ms
+Cliente2 tiempo medio de servicio = 0.00662223 ms
+Cliente5 tiempo medio de servicio = 0.00663188 ms
+Servidor0 ; tareas: 60000 ; Carga: 85.6345% ;  Peticiones/s: 359.176 
 -----------------------------------------------------------------------------
-Cliente1 tiempo medio de servicio = 0.00663813 ms
-Cliente0 tiempo medio de servicio = 0.00664468 ms
-Cliente3 tiempo medio de servicio = 0.00660703 ms
-Cliente4 tiempo medio de servicio = 0.0066391 ms
-Cliente2 tiempo medio de servicio = 0.00662934 ms
-Cliente5 tiempo medio de servicio = 0.00663912 ms
-Servidor0 ; tareas: 60000 ; Carga: 85.4363% ;  Peticiones/s: 358.178 
+Cliente1 tiempo medio de servicio = 0.00666508 ms
+Cliente2 tiempo medio de servicio = 0.00670489 ms
+Cliente4 tiempo medio de servicio = 0.00663468 ms
+Cliente0 tiempo medio de servicio = 0.00667883 ms
+Cliente3 tiempo medio de servicio = 0.00664719 ms
+Cliente5 tiempo medio de servicio = 0.00664712 ms
+Servidor0 ; tareas: 60000 ; Carga: 85.4554% ;  Peticiones/s: 356.985 
 -----------------------------------------------------------------------------
-Cliente0 tiempo medio de servicio = 0.00664282 ms
-Cliente3 tiempo medio de servicio = 0.00669572 ms
-Cliente2 tiempo medio de servicio = 0.00670737 ms
-Cliente1 tiempo medio de servicio = 0.00663635 ms
-Cliente4 tiempo medio de servicio = 0.00664458 ms
-Cliente5 tiempo medio de servicio = 0.00666077 ms
-Servidor0 ; tareas: 60000 ; Carga: 85.8241% ;  Peticiones/s: 359.412 
+Cliente1 tiempo medio de servicio = 0.00663048 ms
+Cliente0 tiempo medio de servicio = 0.00665571 ms
+Cliente3 tiempo medio de servicio = 0.00665223 ms
+Cliente5 tiempo medio de servicio = 0.00670023 ms
+Cliente2 tiempo medio de servicio = 0.0066537 ms
+Cliente4 tiempo medio de servicio = 0.00666117 ms
+Servidor0 ; tareas: 60000 ; Carga: 85.5448% ;  Peticiones/s: 359.093 
 -----------------------------------------------------------------------------
-Cliente1 tiempo medio de servicio = 0.00660125 ms
-Cliente4 tiempo medio de servicio = 0.00661159 ms
-Cliente5 tiempo medio de servicio = 0.00661742 ms
-Cliente0 tiempo medio de servicio = 0.00660217 ms
-Cliente2 tiempo medio de servicio = 0.00660475 ms
-Cliente3 tiempo medio de servicio = 0.0066037 ms
-Servidor0 ; tareas: 60000 ; Carga: 85.4668% ;  Peticiones/s: 358.51 
+Cliente2 tiempo medio de servicio = 0.0066534 ms
+Cliente0 tiempo medio de servicio = 0.00673206 ms
+Cliente1 tiempo medio de servicio = 0.00665396 ms
+Cliente4 tiempo medio de servicio = 0.00668627 ms
+Cliente5 tiempo medio de servicio = 0.00669733 ms
+Cliente3 tiempo medio de servicio = 0.00666516 ms
+Servidor0 ; tareas: 60000 ; Carga: 85.4591% ;  Peticiones/s: 356.671 
 -----------------------------------------------------------------------------
-Cliente1 tiempo medio de servicio = 0.0066536 ms
-Cliente3 tiempo medio de servicio = 0.00663788 ms
-Cliente4 tiempo medio de servicio = 0.00659354 ms
-Cliente2 tiempo medio de servicio = 0.00666029 ms
-Cliente5 tiempo medio de servicio = 0.0066426 ms
-Cliente0 tiempo medio de servicio = 0.00666695 ms
-Servidor0 ; tareas: 60000 ; Carga: 85.3258% ;  Peticiones/s: 356.862 
+Cliente2 tiempo medio de servicio = 0.00661135 ms
+Cliente0 tiempo medio de servicio = 0.00671113 ms
+Cliente4 tiempo medio de servicio = 0.00666301 ms
+Cliente5 tiempo medio de servicio = 0.00665339 ms
+Cliente3 tiempo medio de servicio = 0.00667354 ms
+Cliente1 tiempo medio de servicio = 0.0066353 ms
+Servidor0 ; tareas: 60000 ; Carga: 85.0842% ;  Peticiones/s: 356.477 
 -----------------------------------------------------------------------------
-Cliente0 tiempo medio de servicio = 0.00668664 ms
-Cliente3 tiempo medio de servicio = 0.006631 ms
-Cliente5 tiempo medio de servicio = 0.00661371 ms
-Cliente2 tiempo medio de servicio = 0.00666829 ms
-Cliente1 tiempo medio de servicio = 0.00663811 ms
-Cliente4 tiempo medio de servicio = 0.00665953 ms
-Servidor0 ; tareas: 60000 ; Carga: 85.4374% ;  Peticiones/s: 357.164 
+Cliente5 tiempo medio de servicio = 0.0066765 ms
+Cliente2 tiempo medio de servicio = 0.00666412 ms
+Cliente0 tiempo medio de servicio = 0.00661212 ms
+Cliente3 tiempo medio de servicio = 0.0066606 ms
+Cliente1 tiempo medio de servicio = 0.00665745 ms
+Cliente4 tiempo medio de servicio = 0.00663013 ms
+Servidor0 ; tareas: 60000 ; Carga: 85.5517% ;  Peticiones/s: 358.97 
 -----------------------------------------------------------------------------
-Cliente2 tiempo medio de servicio = 0.00673604 ms
-Cliente3 tiempo medio de servicio = 0.00667064 ms
-Cliente1 tiempo medio de servicio = 0.00663967 ms
-Cliente0 tiempo medio de servicio = 0.00665713 ms
-Cliente4 tiempo medio de servicio = 0.0066845 ms
-Cliente5 tiempo medio de servicio = 0.00660212 ms
-Servidor0 ; tareas: 60000 ; Carga: 85.8917% ;  Peticiones/s: 359.347 
+Cliente4 tiempo medio de servicio = 0.0066829 ms
+Cliente0 tiempo medio de servicio = 0.0066343 ms
+Cliente2 tiempo medio de servicio = 0.00663645 ms
+Cliente1 tiempo medio de servicio = 0.00668416 ms
+Cliente5 tiempo medio de servicio = 0.006632 ms
+Cliente3 tiempo medio de servicio = 0.00663318 ms
+Servidor0 ; tareas: 60000 ; Carga: 85.3357% ;  Peticiones/s: 357.767 
 -----------------------------------------------------------------------------
-Cliente2 tiempo medio de servicio = 0.00668926 ms
-Cliente4 tiempo medio de servicio = 0.0066681 ms
-Cliente5 tiempo medio de servicio = 0.00661813 ms
-Cliente1 tiempo medio de servicio = 0.00667102 ms
-Cliente3 tiempo medio de servicio = 0.0066734 ms
-Cliente0 tiempo medio de servicio = 0.00667173 ms
-Servidor0 ; tareas: 60000 ; Carga: 85.6147% ;  Peticiones/s: 358.618 
+Cliente1 tiempo medio de servicio = 0.00665771 ms
+Cliente3 tiempo medio de servicio = 0.00665121 ms
+Cliente4 tiempo medio de servicio = 0.00665689 ms
+Cliente5 tiempo medio de servicio = 0.00660826 ms
+Cliente0 tiempo medio de servicio = 0.00666759 ms
+Cliente2 tiempo medio de servicio = 0.00666512 ms
+Servidor0 ; tareas: 60000 ; Carga: 85.4622% ;  Peticiones/s: 356.554 
 -----------------------------------------------------------------------------
-Cliente5 tiempo medio de servicio = 0.00666415 ms
-Cliente0 tiempo medio de servicio = 0.00668491 ms
-Cliente1 tiempo medio de servicio = 0.00667348 ms
-Cliente3 tiempo medio de servicio = 0.00671232 ms
-Cliente4 tiempo medio de servicio = 0.00670562 ms
-Cliente2 tiempo medio de servicio = 0.00664353 ms
-Servidor0 ; tareas: 60000 ; Carga: 85.9218% ;  Peticiones/s: 358.604 
+Cliente4 tiempo medio de servicio = 0.00668985 ms
+Cliente3 tiempo medio de servicio = 0.00666799 ms
+Cliente1 tiempo medio de servicio = 0.00670446 ms
+Cliente2 tiempo medio de servicio = 0.00672289 ms
+Cliente5 tiempo medio de servicio = 0.00672262 ms
+Cliente0 tiempo medio de servicio = 0.00667942 ms
+Servidor0 ; tareas: 60000 ; Carga: 85.7598% ;  Peticiones/s: 358.373 
 -----------------------------------------------------------------------------
-Cliente0 tiempo medio de servicio = 0.00673149 ms
-Cliente4 tiempo medio de servicio = 0.00676252 ms
-Cliente1 tiempo medio de servicio = 0.00674144 ms
-Cliente3 tiempo medio de servicio = 0.00677116 ms
-Cliente2 tiempo medio de servicio = 0.00674374 ms
-Cliente5 tiempo medio de servicio = 0.0067554 ms
-Servidor0 ; tareas: 60000 ; Carga: 85.7973% ;  Peticiones/s: 356.942 
------------------------------------------------------------------------------
-Cliente4 tiempo medio de servicio = 0.00664154 ms
-Cliente1 tiempo medio de servicio = 0.00668385 ms
-Cliente5 tiempo medio de servicio = 0.00669201 ms
-Cliente3 tiempo medio de servicio = 0.00666753 ms
-Cliente2 tiempo medio de servicio = 0.00666778 ms
-Cliente0 tiempo medio de servicio = 0.0066594 ms
-Servidor0 ; tareas: 60000 ; Carga: 85.2571% ;  Peticiones/s: 356.133 
+Cliente1 tiempo medio de servicio = 0.00667125 ms
+Cliente3 tiempo medio de servicio = 0.00666405 ms
+Cliente5 tiempo medio de servicio = 0.00666699 ms
+Cliente0 tiempo medio de servicio = 0.00664759 ms
+Cliente4 tiempo medio de servicio = 0.00664423 ms
+Cliente2 tiempo medio de servicio = 0.00667942 ms
+Servidor0 ; tareas: 60000 ; Carga: 85.7131% ;  Peticiones/s: 358.807 

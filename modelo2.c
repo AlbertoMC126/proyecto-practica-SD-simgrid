@@ -363,6 +363,7 @@ int main(int argc, char *argv[])
 	barrier_clients=MSG_barrier_init(NUM_CLIENTS);
 	barrier_servers=MSG_barrier_init(NUM_SERVERS);
 
+	printf("-----------------------------------------------------------------------------\n");
 	test_all(argv[1]);
 
   	res = MSG_main();
