@@ -1,0 +1,37 @@
+#!/bin/bash
+
+echo -e "------------------------------output exercise 2b random dispatcher------------------------------" > ./resultados/output2b_random.txt
+echo -e "---Resultados de clientes ejercicio 2b dispatcher aleatorio---" > ./resultados/output2b_random_clientes.csv
+echo -e "---Resultados de servidores ejercicio 2b dispatcher aleatorio---" > ./resultados/output2b_random_servidores.csv
+echo "Cliente;Tiempo medio de servicio" >> ./resultados/output2b_random_clientes.csv
+echo "Servidor;Tareas;Carga(%);Peticiones/s" >> ./resultados/output2b_random_servidores.csv
+for i in 1 2 4 8 10
+	do
+		mapfile -t output_array < <(./modelo2 platform-cluster.xml 50 $i random)
+		for y in "${output_array[@]}"
+			do
+				echo -e "${y}" >> ./resultados/output2b_random.txt
+				echo "${y}" | grep "Cliente" | sed -E 's/(Cliente[[:digit:]]*).*= ([[:digit:]]*\.*[[:digit:]]*).*/\1;\2/'  | sed -e 's/\./,/g' >> ./resultados/output2b_random_clientes.csv
+				echo "${y}" | grep "Servidor" | sed -E 's/(Servidor[[:digit:]]*).*tareas: ([[:digit:]]*).*Carga: ([[:digit:]]*\.*[[:digit:]]*).*\/s: ([[:digit:]]*\.*[[:digit:]]*).*/\1;\2;\3;\4/' | sed -e 's/\./,/g' >> ./resultados/output2b_random_servidores.csv
+				echo "${y}" | grep -E '^-*$' | sed -E 's/(^-*$)//' >> ./resultados/output2b_random_servidores.csv
+				echo "${y}" | grep -E '^-*$' | sed -E 's/(^-*$)//' >> ./resultados/output2b_random_clientes.csv
+			done
+	done
+
+echo -e "------------------------------output exercise 2b round robin dispatcher------------------------------" > ./resultados/output2b_roundrobin.txt
+echo -e "---Resultados de clientes ejercicio 2b dispatcher round robin---" > ./resultados/output2b_roundrobin_clientes.csv
+echo -e "---Resultados de servidores ejercicio 2b dispatcher round robin---" > ./resultados/output2b_roundrobin_servidores.csv
+echo "Cliente;Tiempo medio de servicio" >> ./resultados/output2b_roundrobin_clientes.csv
+echo "Servidor;Tareas;Carga(%);Peticiones/s" >> ./resultados/output2b_roundrobin_servidores.csv
+for i in 1 2 4 8 10
+	do
+		mapfile -t output_array < <(./modelo2 platform-cluster.xml 50 $i round_robin)
+		for y in "${output_array[@]}"
+			do
+				echo -e "${y}" >> ./resultados/output2b_roundrobin.txt
+				echo "${y}" | grep "Cliente" | sed -E 's/(Cliente[[:digit:]]*).*= ([[:digit:]]*\.*[[:digit:]]*).*/\1;\2/'  | sed -e 's/\./,/g' >> ./resultados/output2b_roundrobin_clientes.csv
+				echo "${y}" | grep "Servidor" | sed -E 's/(Servidor[[:digit:]]*).*tareas: ([[:digit:]]*).*Carga: ([[:digit:]]*\.*[[:digit:]]*).*\/s: ([[:digit:]]*\.*[[:digit:]]*).*/\1;\2;\3;\4/' | sed -e 's/\./,/g' >> ./resultados/output2b_roundrobin_servidores.csv
+				echo "${y}" | grep -E '^-*$' | sed -E 's/(^-*$)//' >> ./resultados/output2b_roundrobin_servidores.csv
+				echo "${y}" | grep -E '^-*$' | sed -E 's/(^-*$)//' >> ./resultados/output2b_roundrobin_clientes.csv
+			done 
+	done
