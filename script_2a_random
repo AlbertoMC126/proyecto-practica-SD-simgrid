@@ -17,3 +17,16 @@ for i in {1..25}
 				echo "${y}" | grep -E '^-*$' | sed -E 's/(^-*$)//' >> ./resultados/output2a_random_clientes.csv
 			done 
 	done
+
+for i in 30 35 50
+	do
+		mapfile -t output_array < <(./modelo2 platform-cluster.xml $(( i * 2 )) 10 0)
+		for y in "${output_array[@]}"
+			do
+				echo -e "${y}" >> ./resultados/output2a_random.txt
+				echo "${y}" | grep "Cliente" | sed -E 's/(Cliente[[:digit:]]*).*= ([[:digit:]]*\.*[[:digit:]]*).*/\1;\2/'  | sed -e 's/\./,/g' >> ./resultados/output2a_random_clientes.csv
+				echo "${y}" | grep "Servidor" | sed -E 's/(Servidor[[:digit:]]*).*tareas: ([[:digit:]]*).*Carga: ([[:digit:]]*\.*[[:digit:]]*).*\/s: ([[:digit:]]*\.*[[:digit:]]*).*/\1;\2;\3;\4/' | sed -e 's/\./,/g' >> ./resultados/output2a_random_servidores.csv
+				echo "${y}" | grep -E '^-*$' | sed -E 's/(^-*$)//' >> ./resultados/output2a_random_servidores.csv
+				echo "${y}" | grep -E '^-*$' | sed -E 's/(^-*$)//' >> ./resultados/output2a_random_clientes.csv
+			done 
+	done
